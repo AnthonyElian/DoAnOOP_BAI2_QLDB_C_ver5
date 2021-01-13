@@ -65,6 +65,7 @@ void NVVeSinh::Xuat()
     CaNhan::Xuat();
     cout << "Ca lam viec cua NVVS la: " << this->iShift << endl;
     cout << "Thuong them cua Doi Bong danh cho NVVS la: " << this->dThuong << " VND" << endl;
+    cout << "Luong cua NVVS la: " << this->TinhLuong() << " VND" << endl;
 }
 
 double NVVeSinh::operator+(const double num)
