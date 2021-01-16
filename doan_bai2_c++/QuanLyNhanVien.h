@@ -53,5 +53,7 @@ public:
 	vector<CaNhan*>* LocTheoLuongLon();
 	vector<CaNhan*>* LocTheoLuongBe	();
 	void XemCaNhan();
+	void xoaNV();
+	void xoa1NV(int x);
 };
 #endif // !QuanLyNhanVien_h

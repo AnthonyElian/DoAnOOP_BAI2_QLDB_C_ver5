@@ -446,4 +446,79 @@ void QuanLyNhanVien::XemCaNhan()
         cout << "Input sai vui long kiem tra lai!!" << endl;
 }
 
+void QuanLyNhanVien::xoaNV()
+{
+    cout << "So luong nhan vien hien tai la: " << this->lCaNhan->size() << endl;
+    cout << "Ban muon xoa bao nhieu nhan vien: ";
+    int n, dem = 0; cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cout << "Danh sach nhan vien:" << endl;
+        for (auto item : *this->lCaNhan)
+        {
+            cout << "STT: " << dem << " Ho ten: " << item->sHoTen << " Chuc Vu: " << item->sNghe << endl;
+            dem++;
+        }
+        cout << "Nhap thu tu nhan vien muon xoa: ";
+        int x; cin >> x;
+        this->xoa1NV(x);
+    }
+}
+
+void QuanLyNhanVien::xoa1NV(int x)
+{
+    CaNhan* temp = this->lCaNhan->at(x);
+    if (temp->sNghe == "bacsi")
+    {
+        int i = 0;
+        for (i; i < this->lBacSi->size(); i++)
+        {
+            if (this->lBacSi->at(i)->sHoTen == temp->sHoTen)
+                break;
+        }
+        this->lBacSi->erase(this->lBacSi->begin() + i);
+    }
+    if (temp->sNghe == "HLVCT")
+    {
+        int i = 0;
+        for (i; i < this->lHLVCT->size(); i++)
+        {
+            if (this->lHLVCT->at(i)->sHoTen == temp->sHoTen)
+                break;
+        }
+        this->lHLVCT->erase(this->lHLVCT->begin() + i);
+    }
+    if (temp->sNghe == "HLVTL")
+    {
+        int i = 0;
+        for (i; i < this->lHLVTL->size(); i++)
+        {
+            if (this->lHLVTL->at(i)->sHoTen == temp->sHoTen)
+                break;
+        }
+        this->lHLVTL->erase(this->lHLVTL->begin() + i);
+    }
+    if (temp->sNghe == "NVBaoVe")
+    {
+        int i = 0;
+        for (i; i < this->lNVBV->size(); i++)
+        {
+            if (this->lNVBV->at(i)->sHoTen == temp->sHoTen)
+                break;
+        }
+        this->lNVBV->erase(this->lNVBV->begin() + i);
+    }
+    if (temp->sNghe == "NVVeSinh")
+    {
+        int i = 0;
+        for (i; i < this->lNVVS->size(); i++)
+        {
+            if (this->lNVVS->at(i)->sHoTen == temp->sHoTen)
+                break;
+        }
+        this->lNVVS->erase(this->lNVVS->begin() + i);
+    }
+    this->lCaNhan->erase(this->lCaNhan->begin() + x);
+}
+
 

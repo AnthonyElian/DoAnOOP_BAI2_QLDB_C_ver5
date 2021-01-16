@@ -30,6 +30,7 @@ public:
     void setsViTriDaChinh(string vitri);
     CauThu(string hoten, int thoigianhopdong, double luongcoban, string cmnd, int namsinh, int soao, int tinhtrangsuckhoe);
     CauThu(string hoten, double luongcoban, string cmnd, int soao);
+    CauThu(string hoten, double luongcoban, string cmnd, int namsinh, int soao, int tinhtrangsuckhoe, int tinhtrangtheluc, string chanthuan, string vitridachinh);
     CauThu();
     void Nhap();
     double TinhLuong();

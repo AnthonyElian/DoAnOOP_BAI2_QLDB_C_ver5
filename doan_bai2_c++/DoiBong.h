@@ -14,6 +14,7 @@ private:
 	QuanLyCauThu* lCauThu;
 	QuanLyNhanVien* lNhanVien;
 public:
+	vector<CaNhan*>* expired;
 	string getsTenDoiBong();
 	void setsTenDoiBong(string ten);
 	string getsTenNhaTaiTro();
@@ -27,6 +28,8 @@ public:
 	~DoiBong();
 	void Nhap();
 	void Xuat();
+	void DanhSachHetHanHopDong();
+	void ThaoTacHopDong();
 	void MenuQLCT();
 	void MenuQLNV();
 	void MenuHoatDong();

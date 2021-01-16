@@ -27,6 +27,14 @@ CaNhan::CaNhan(string hoten, double luongcoban, string cmnd)
     this->sCMND = cmnd;
 }
 
+CaNhan::CaNhan(string hoten, double luongcoban, string cmnd, int namsinh)
+{
+    this->sHoTen = hoten;
+    this->dLuongCoBan = luongcoban;
+    this->sCMND = cmnd;
+    this->iNamSinh = namsinh;
+}
+
 void CaNhan::Nhap()
 {
     cout << "Moi nhap Ho Ten thanh vien: ";
@@ -197,9 +205,8 @@ int CaNhan::ThoiGianHopDongConLai()
     time_t curr = time(0);
     tm* ltm = localtime(&curr);
     int temp1 = this->thisIsMagic(1900 + ltm->tm_year, 1 + ltm->tm_mon, ltm->tm_mday);
-    int temp2 = this->thisIsMagic(this->iNamGiaNhap, this->iThangGiaNgap, this->iNgayGiaNhap);
-
-    return temp1 - temp2;
+    int temp2 = this->thisIsMagic(this->iNamGiaNhap+this->iThoiGianHopDong, this->iThangGiaNgap, this->iNgayGiaNhap);
+    return temp2 - temp1;
 }
 
 

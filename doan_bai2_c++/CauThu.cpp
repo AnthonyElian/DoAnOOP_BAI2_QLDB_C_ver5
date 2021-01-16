@@ -65,8 +65,18 @@ CauThu::CauThu(string hoten, double luongcoban, string cmnd, int soao) : CaNhan(
 	this->iSoAo = soao;
 }
 
+CauThu::CauThu(string hoten, double luongcoban, string cmnd, int namsinh, int soao, int tinhtrangsuckhoe, int tinhtrangtheluc, string chanthuan, string vitridachinh) : CaNhan(hoten,luongcoban,cmnd,namsinh)
+{
+	this->iSoAo = soao;
+	this->iTinhTrangSucKhoe = tinhtrangsuckhoe;
+	this->iTinhTrangTheLuc = tinhtrangtheluc;
+	this->sChanThuan = chanthuan;
+	this->sViTriDaChinh = vitridachinh;
+}
+
 CauThu::CauThu() : CaNhan()
 {
+	this->sNghe = "CauThu";
 }
 
 void CauThu::Nhap()

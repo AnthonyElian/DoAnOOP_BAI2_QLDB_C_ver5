@@ -44,6 +44,7 @@ DoiBong::DoiBong()
 {
     this->lCauThu = new QuanLyCauThu();
     this->lNhanVien = new QuanLyNhanVien();
+    this->expired = new vector<CaNhan*>();
 }
 
 DoiBong::DoiBong(string tendoi, string tennhataitro)
@@ -75,6 +76,204 @@ void DoiBong::Xuat()
     cout << "Nha Tai Tro la: " << this->sTenNhaTaiTro << endl;
 }
 
+void DoiBong::DanhSachHetHanHopDong()
+{
+    for (int i = 0; i < this->lCauThu->getvectorCauThu()->size(); i++)
+    {
+        if (this->lCauThu->getvectorCauThu()->at(i)->ThoiGianHopDongConLai() <= 0)
+        {
+            CauThu* temp = this->lCauThu->getvectorCauThu()->at(i);
+            this->expired->push_back(temp);
+        }
+    }
+    for (int i = 0; i < this->lNhanVien->getlCaNhan()->size(); i++)
+    {
+        if (this->lNhanVien->getlCaNhan()->at(i)->ThoiGianHopDongConLai() <= 0)
+        {
+            CaNhan* temp = this->lNhanVien->getlCaNhan()->at(i);
+            this->expired->push_back(temp);
+        }
+    }
+}
+
+void DoiBong::ThaoTacHopDong()
+{
+    this->DanhSachHetHanHopDong();
+    if (this->expired->size() <= 0)
+    {
+        cout << "Khong co nhan vien nao het han hop dong !!" << endl;
+    }
+    else
+    {
+        int flag = 1;
+        while (flag == 1)
+        {
+            if (this->expired->size() == 0)
+            {
+                flag = 0;
+            }
+            else
+            {
+                int dem = 0;
+                cout << "Danh sach het han hop dong la: " << endl;
+                for (auto item : *this->expired)
+                {
+                    cout << "STT: " << dem++ << " Ho ten: " << item->sHoTen << " Luong: " << item->TinhLuong() << endl;
+                }
+                cout << "1_Gia Han || 2_Kick => Your choice: ";
+                int n; cin >> n;
+                switch (n)
+                {
+                case 1:
+                {
+                    cout << "Ban muon gia han nhan vien thu may: ";
+                    int x; cin >> x;
+                    if (this->expired->at(x)->sNghe == "CauThu")
+                    {
+                        for (int i = 0; i < this->lCauThu->getvectorCauThu()->size(); i++)
+                        {
+                            if (this->lCauThu->getvectorCauThu()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                            {
+                                cout << "Gia han hop dong bao nhieu nam: ";
+                                cin >> this->lCauThu->getvectorCauThu()->at(i)->iThoiGianHopDong;
+                                this->lCauThu->getvectorCauThu()->at(i)->iNgayGiaNhap = 15;
+                                this->lCauThu->getvectorCauThu()->at(i)->iThangGiaNgap = 1;
+                                this->lCauThu->getvectorCauThu()->at(i)->iNamGiaNhap = 2021;
+                                this->expired->erase(this->expired->begin() + x);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int temp;
+                        for (int i = 0; i < this->lNhanVien->getlCaNhan()->size(); i++)
+                        {
+                            if (this->lNhanVien->getlCaNhan()->at(i)->sHoTen == this->expired->at(i)->sHoTen)
+                            {
+                                cout << "Gia han hop dong bao nhieu nam?: ";
+                                cin >> temp;
+                                this->lNhanVien->getlCaNhan()->at(i)->iThoiGianHopDong = temp;
+                                this->lNhanVien->getlCaNhan()->at(i)->iNgayGiaNhap = 15;
+                                this->lNhanVien->getlCaNhan()->at(i)->iThangGiaNgap = 1;
+                                this->lNhanVien->getlCaNhan()->at(i)->iNamGiaNhap = 2021;
+                                if (this->expired->at(x)->sNghe == "bacsi")
+                                {
+                                    for (int i = 0; i < this->lNhanVien->getlBacSi()->size(); i++)
+                                    {
+                                        if (this->lNhanVien->getlBacSi()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                                        {
+                                            this->lNhanVien->getlBacSi()->at(i)->iThoiGianHopDong = temp;
+                                            this->lNhanVien->getlBacSi()->at(i)->iNgayGiaNhap = 15;
+                                            this->lNhanVien->getlBacSi()->at(i)->iThangGiaNgap = 1;
+                                            this->lNhanVien->getlBacSi()->at(i)->iNamGiaNhap = 2021;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (this->expired->at(x)->sNghe == "HLVCT")
+                                {
+                                    for (int i = 0; i < this->lNhanVien->getlHLVCT()->size(); i++)
+                                    {
+                                        if (this->lNhanVien->getlHLVCT()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                                        {
+                                            this->lNhanVien->getlHLVCT()->at(i)->iThoiGianHopDong = temp;
+                                            this->lNhanVien->getlHLVCT()->at(i)->iNgayGiaNhap = 15;
+                                            this->lNhanVien->getlHLVCT()->at(i)->iThangGiaNgap = 1;
+                                            this->lNhanVien->getlHLVCT()->at(i)->iNamGiaNhap = 2021;
+                                        }
+                                    }
+                                }
+                                else if (this->expired->at(x)->sNghe == "HLVTL")
+                                {
+                                    for (int i = 0; i < this->lNhanVien->getlHLVTL()->size(); i++)
+                                    {
+                                        if (this->lNhanVien->getlHLVTL()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                                        {
+                                            this->lNhanVien->getlHLVTL()->at(i)->iThoiGianHopDong = temp;
+                                            this->lNhanVien->getlHLVTL()->at(i)->iNgayGiaNhap = 15;
+                                            this->lNhanVien->getlHLVTL()->at(i)->iThangGiaNgap = 1;
+                                            this->lNhanVien->getlHLVTL()->at(i)->iNamGiaNhap = 2021;
+                                        }
+                                    }
+                                }
+                                else if (this->expired->at(x)->sNghe == "NVVeSinh")
+                                {
+                                    for (int i = 0; i < this->lNhanVien->getlNVVS()->size(); i++)
+                                    {
+                                        if (this->lNhanVien->getlNVVS()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                                        {
+                                            this->lNhanVien->getlNVVS()->at(i)->iThoiGianHopDong = temp;
+                                            this->lNhanVien->getlNVVS()->at(i)->iNgayGiaNhap = 15;
+                                            this->lNhanVien->getlNVVS()->at(i)->iThangGiaNgap = 1;
+                                            this->lNhanVien->getlNVVS()->at(i)->iNamGiaNhap = 2021;
+                                        }
+                                    }
+                                }
+                                else if (this->expired->at(x)->sNghe == "NVBaoVe")
+                                {
+                                    for (int i = 0; i < this->lNhanVien->getlNVBV()->size(); i++)
+                                    {
+                                        if (this->lNhanVien->getlNVBV()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                                        {
+                                            this->lNhanVien->getlNVBV()->at(i)->iThoiGianHopDong = temp;
+                                            this->lNhanVien->getlNVBV()->at(i)->iNgayGiaNhap = 15;
+                                            this->lNhanVien->getlNVBV()->at(i)->iThangGiaNgap = 1;
+                                            this->lNhanVien->getlNVBV()->at(i)->iNamGiaNhap = 2021;
+                                        }
+                                    }
+                                }
+                                this->expired->erase(this->expired->begin() + x);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    cout << "Ban muon kick nhan vien thu may: ";
+                    int x; cin >> x;
+                    if (this->expired->at(x)->sNghe != "CauThu")
+                    {
+                        int temp = 0;
+                        for (int i = 0; i < this->lNhanVien->getlCaNhan()->size(); i++)
+                        {
+                            if (this->lNhanVien->getlCaNhan()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                            {
+                                temp = i;
+                                break;
+                            }
+                        }
+                        this->lNhanVien->xoa1NV(temp);
+                        this->expired->erase(this->expired->begin() + x);
+                    }
+                    else
+                    {
+                        int temp = 0;
+                        for (int i = 0; i < this->lCauThu->getvectorCauThu()->size(); i++)
+                        {
+                            if (this->lCauThu->getvectorCauThu()->at(i)->sHoTen == this->expired->at(x)->sHoTen)
+                            {
+                                temp = i;
+                                break;
+                            }
+                        }
+                        this->lCauThu->xoa1CT(temp);
+                        this->expired->erase(this->expired->begin() + x);
+                    }
+                    break;
+                }
+                }
+                cout << "1_De tiep tuc !! => Your choice: ";
+                cin >> flag;
+            }
+        }
+    }
+}
+
+
+
 void DoiBong::MenuQLCT()
 {
     int flag = 1;
@@ -90,7 +289,8 @@ void DoiBong::MenuQLCT()
         cout << "\t\t\t***      6. Cau Thu co The Luc Tot Nhat          ***\t\t\t" << endl;
         cout << "\t\t\t***      7. Cau Thu co Suc Khoe Yeu Nhat         ***\t\t\t" << endl;
         cout << "\t\t\t***      8. Tong Luong Cau Thu                   ***\t\t\t" << endl;
-        cout << "\t\t\t***      9. Thoat                                ***\t\t\t" << endl;
+        cout << "\t\t\t***      9. Xoa Cau Thu                          ***\t\t\t" << endl;
+        cout << "\t\t\t***     10. Thoat                                ***\t\t\t" << endl;
         cout << "\t\t\t****************************************************\t\t\t" << endl;
         cout << "Moi nhap lua chon cua ban => Your choice: ";
         int choice; cin >> choice;
@@ -170,7 +370,24 @@ void DoiBong::MenuQLCT()
         }
         case 9:
         {
-            this->lCauThu->~QuanLyCauThu();
+            if (this->lCauThu->getvectorCauThu()->size() <= 0)
+            {
+                cout << "Vui long nhap it nhat mot cau thu !! " << endl;
+            }
+            else
+            {
+                this->lCauThu->xoaCT();
+                cout << "Danh sach cau thu sau khi xoa: " << endl;
+                for (auto item : *this->lCauThu->getvectorCauThu())
+                {
+                    cout << "Ten cau thu: " << item->sHoTen << endl;
+                }
+            }
+            break;
+        }
+        case 10:
+        {
+            //this->lCauThu->~QuanLyCauThu();
             flag = 0;
             break;
         }
@@ -200,7 +417,8 @@ void DoiBong::MenuQLNV()
         cout << "\t\t\t***      8. Tong Luong Nhan Vien                 ***\t\t\t" << endl;
         cout << "\t\t\t***      9. Tim kiem nhan vien theo ten          ***\t\t\t" << endl;
         cout << "\t\t\t***     10. Xem Ca Nhan                          ***\t\t\t" << endl;
-        cout << "\t\t\t***     11. Thoat                                ***\t\t\t" << endl;
+        cout << "\t\t\t***     11. Xoa Nhan Vien                        ***\t\t\t" << endl;
+        cout << "\t\t\t***     12. Thoat                                ***\t\t\t" << endl;
         cout << "\t\t\t****************************************************\t\t\t" << endl;
         cout << "Moi nhap lua chon cua ban => Your choice: ";
         int choice; cin >> choice;
@@ -280,13 +498,36 @@ void DoiBong::MenuQLNV()
         }
         case 10:
         {
-            this->lNhanVien->XemCaNhan();
-            cout << endl;
+            if (this->lNhanVien->getlCaNhan()->size() != 0)
+            {
+                this->lNhanVien->XemCaNhan();
+                cout << endl;
+            }
+            else
+            {
+                cout << "Vui long nhap it nhat mot nhan vien !!" << endl;
+            }
             break;
         }
         case 11:
         {
-            this->lNhanVien->~QuanLyNhanVien();
+            if (this->lNhanVien->getlCaNhan()->size() <= 0)
+            {
+                cout << "Vui long nhap it nhat mot nhan vien !!" << endl;
+            }
+            else
+            {
+                this->lNhanVien->xoaNV();
+                for (auto item : *this->lNhanVien->getlCaNhan())
+                {
+                    cout << "Ho ten: " << item->sHoTen << " Chuc vu: " << item->sNghe << endl;
+                }
+            }
+            break;
+        }
+        case 12:
+        {
+            //this->lNhanVien->~QuanLyNhanVien();
             flag = 0;
             break;
         }
@@ -301,8 +542,10 @@ void DoiBong::MenuQLNV()
 
 void DoiBong::MenuHoatDong()
 {
-    int flag = 1;
     HoatDong HoatDong;
+    vector<CauThu*>* tmp = new vector<CauThu*>();
+    HoatDong.createCauThu(tmp);
+    int flag = 1;
     while (flag == 1)
     {
         cout << "\t\t\t************************MENU************************\t\t\t" << endl;
@@ -312,7 +555,9 @@ void DoiBong::MenuHoatDong()
         cout << "\t\t\t***      4. Huan Luyen The Luc Ca Doi            ***\t\t\t" << endl;
         cout << "\t\t\t***      5. Huan Luyen The Luc Cau Thu           ***\t\t\t" << endl;
         cout << "\t\t\t***      6. Da thu                               ***\t\t\t" << endl;
-        cout << "\t\t\t***      7. Thoat                                ***\t\t\t" << endl;
+        cout << "\t\t\t***      7. Thao tac hop dong                    ***\t\t\t" << endl;
+        cout << "\t\t\t***      8. Chuyen nhuong                        ***\t\t\t" << endl;
+        cout << "\t\t\t***      9. Thoat                                ***\t\t\t" << endl;
         cout << "\t\t\t****************************************************\t\t\t" << endl;
         cout << "Moi nhap lua chon cua ban => Your choice: " ;
         int choice; cin >> choice;
@@ -405,6 +650,16 @@ void DoiBong::MenuHoatDong()
             break;
         }
         case 7:
+        {
+            this->ThaoTacHopDong();
+            this->expired->clear();
+            break;
+        }
+        case 8:
+        {
+            HoatDong.ChuyenNhuong(this->lCauThu, tmp);
+        }
+        case 9:
         {
             flag = 0;
             break;

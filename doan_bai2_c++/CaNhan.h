@@ -22,6 +22,7 @@ public:
 	~CaNhan();
 	CaNhan(string hoten, int thoigianhopdong, double luongcoban, string cmnd, int namsinh);
 	CaNhan(string hoten, double luongcoban, string cmnd);
+	CaNhan(string hoten, double luongcoban, string cmnd, int namsinh);
 	virtual double TinhLuong() = 0;
 	virtual void Nhap();
 	virtual void Xuat();

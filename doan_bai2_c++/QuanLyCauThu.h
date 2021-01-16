@@ -23,5 +23,7 @@ public:
 	CauThu* CauThuCoTheLucTotNhat();
 	CauThu* CauThuCoSucKhoeYeuNhat();
 	double TongLuongToanCauThu();
+	void xoaCT();
+	void xoa1CT(int x);
 };
 

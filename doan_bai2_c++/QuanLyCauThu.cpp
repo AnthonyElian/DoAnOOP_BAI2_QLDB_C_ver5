@@ -322,6 +322,30 @@ double QuanLyCauThu::TongLuongToanCauThu()
     return temp;
 }
 
+void QuanLyCauThu::xoaCT()
+{
+    cout << "So luong cau thu hien tai la: " << this->vectorCauThu->size() << endl;
+    cout << "Ban muon xoa bao nhieu cau thu: ";
+    int n, dem = 0; cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cout << "Danh sach cau thu: " << endl;
+        for (auto item : *this->vectorCauThu)
+        {
+            cout << "STT: " << dem << " Ho ten: " << item->sHoTen << endl;
+            dem++;
+        }
+        cout << "Nhap thu tu cau thu muon xoa: ";
+        int x; cin >> x;
+        this->xoa1CT(x);
+    }
+}
+
+void QuanLyCauThu::xoa1CT(int x)
+{
+    this->vectorCauThu->erase(this->vectorCauThu->begin() + x);
+}
+
 
 
 
