@@ -10,6 +10,7 @@
 #include"NVVeSinh.h"
 #include<algorithm>
 #include "QuanLyCauThu.h"
+#include"San.h"
 
 class HoatDong
 {
@@ -19,7 +20,7 @@ public :
 	static vector<CauThu*>* TuyenChon11CT(vector<CauThu*>* list);
 	static void HuanLuyenTLCaDoi(vector<CauThu*>* list, HLVTheLuc* HLV);
 	static void HuanLuyenTL(CauThu* &ct, HLVTheLuc* hlv);
-	static void DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV);
+	static void DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV,San* san);
 	static void createCauThu(vector<CauThu*>* &chuyennhuong);
 	static void ChuyenNhuong(QuanLyCauThu* &ct, vector<CauThu*>*& temp);
 };

@@ -100,11 +100,17 @@ int main()
                 else
                     cout << "Doi bong khong co San!! " << endl;
             }
+            co3 = 1;
             break;
         }
         case 6:
         {
-            a->MenuHoatDong();
+            if (co3 == 1)
+                a->MenuHoatDong(san);
+            else
+            {
+                cout << "ung dung nay su dung thong tin san vui long nhap thong tin san" << endl;
+            }
             break;
         }
         case 7:

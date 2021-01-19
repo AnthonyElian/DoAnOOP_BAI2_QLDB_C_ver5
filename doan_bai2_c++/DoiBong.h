@@ -32,6 +32,6 @@ public:
 	void ThaoTacHopDong();
 	void MenuQLCT();
 	void MenuQLNV();
-	void MenuHoatDong();
+	void MenuHoatDong(San* san);
 };
 #endif // !DoiBong_h

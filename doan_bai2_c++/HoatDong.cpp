@@ -80,7 +80,7 @@ void HoatDong::HuanLuyenTL(CauThu*& ct, HLVTheLuc* hlv)
     ct->setiTinhTrangTheLuc(ct->getiTinhTrangTheLuc() + hlv->getiChiSoNangCaoTL());
 }
 
-void HoatDong::DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV)
+void HoatDong::DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV,San* san)
 {
     cout << "Chon cau thu tham gia thi dau\n";
     vector<CauThu*>* listCT2 = TuyenChon11CT(listCT);
@@ -88,6 +88,36 @@ void HoatDong::DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV)
     string chienthuat = HLV->ChonChienThuat();
     cout << "Nhap doi thu: ";
     string dt; cin.ignore(); cin >> dt;
+    cout << "Ban muon da tren san nha:1 hay san khach:2 => Your choice: ";
+    int key; cin >> key;; int flag;
+    string tensan = "";
+    if (key == 1)
+    {
+        if (san != nullptr)
+        {
+            flag = 1;
+        }
+        else
+        {
+            flag = 2;
+            cout << "Doi tuyen khong co san, Moi nhap ten san khach: "; cin.ignore(); cin >> tensan;
+        }
+    }
+    else
+    {
+        flag = 2;
+        cout << "Moi nhap ten san khach: "; cin.ignore(); cin >> tensan;
+    }
+    int soLuong = 0;
+    if (flag == 1)
+    {
+        do
+        {
+            cout << "Moi nhap so luong khan gia da mua ve: ";
+            cin >> soLuong;
+
+        } while (san->getiSoLuongKhanGia() < soLuong);
+    }
     cout << "\t\t\t************************************************\t\t\t" << endl;
     cout << "Doi nha VS " << dt << endl;
     cout << "Danh sach cau thu tham du!\n";
@@ -98,6 +128,42 @@ void HoatDong::DaGiaoLuu(vector<CauThu*>* listCT, HLVChienThuat* HLV)
     cout << "Huan luyen vien: " << HLV->sHoTen << " ___ Chien Thuat: " << chienthuat << endl;
     cout << "\t\t\t************************************************\t\t\t" << endl;
 
+    cout << "1_Thang || 2_Thua => Your choice: "; int temp;
+    cin >> temp;
+    if (temp == 1)
+    {
+        for (int i = 0; i < listCT2->size(); i++)
+        {
+            for (int j = 0; j < listCT->size(); j++)
+            {
+                if (listCT2->at(i)->sHoTen == listCT->at(j)->sHoTen)
+                {
+                    listCT->at(j)->dLuongCoBan = listCT->at(j)->dLuongCoBan + 500000;
+                    listCT->at(j)->setiTinhTrangSucKhoe(listCT->at(j)->getiTinhTrangSucKhoe() - 2);
+                    listCT->at(j)->setiTinhTrangTheLuc(listCT->at(j)->getiTinhTrangTheLuc() - 3);
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < listCT2->size(); i++)
+        {
+            for (int j = 0; j < listCT->size(); j++)
+            {
+                if (listCT2->at(i)->sHoTen == listCT->at(j)->sHoTen)
+                {
+                    listCT->at(j)->setiTinhTrangSucKhoe(listCT->at(j)->getiTinhTrangSucKhoe() - 5);
+                    listCT->at(j)->setiTinhTrangTheLuc(listCT->at(j)->getiTinhTrangTheLuc() - 7);
+                }
+            }
+        }
+    }
+    if (flag == 1)
+    {
+        double thunhap = san->getdGiaVe() * soLuong;
+        cout << "Thu nhap cua san bong la: " << thunhap << endl;
+    }
 }
 
 void HoatDong::createCauThu(vector<CauThu*>*& chuyennhuong)

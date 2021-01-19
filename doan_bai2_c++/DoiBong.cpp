@@ -540,7 +540,7 @@ void DoiBong::MenuQLNV()
     }
 }
 
-void DoiBong::MenuHoatDong()
+void DoiBong::MenuHoatDong(San* san)
 {
     HoatDong HoatDong;
     vector<CauThu*>* tmp = new vector<CauThu*>();
@@ -646,7 +646,7 @@ void DoiBong::MenuHoatDong()
                 break;
             }
             HLVChienThuat* hlv = this->lNhanVien->ChonHLVCT();
-            HoatDong.DaGiaoLuu(this->lCauThu->getvectorCauThu(), hlv);
+            HoatDong.DaGiaoLuu(this->lCauThu->getvectorCauThu(), hlv, san);
             break;
         }
         case 7:
